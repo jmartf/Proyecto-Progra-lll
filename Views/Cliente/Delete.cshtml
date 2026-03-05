@@ -1,0 +1,20 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Cliente
+
+<h2>Eliminar Cliente</h2>
+
+<h4>¿Está seguro que desea eliminar este cliente?</h4>
+
+<div>
+    <strong>Identificación:</strong> @Model.Identificacion <br />
+    <strong>Nombre:</strong> @Model.NombreCompleto <br />
+    <strong>Teléfono:</strong> @Model.Telefono <br />
+    <strong>Correo:</strong> @Model.Correo
+</div>
+
+<br />
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="ClienteId" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
