@@ -13,19 +13,19 @@ namespace Proyecto_Programacion_III.Models.Entidades
         public int ClienteId { get; set; }
 
         [ForeignKey("ClienteId")]
-        public Cliente Cliente { get; set; }
+        public Cliente? Cliente { get; set; }
 
         [Required]
         public int ServicioId { get; set; }
 
         [ForeignKey("ServicioId")]
-        public Servicio Servicio { get; set; }
+        public Servicio? Servicio { get; set; }
 
         [Required]
-        public int UsuarioId { get; set; }
+        public string UsuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]
-        public Usuario Usuario { get; set; }
+        public Usuario? Usuario { get; set; }
 
         [Required]
         public DateTime FechaHora { get; set; }

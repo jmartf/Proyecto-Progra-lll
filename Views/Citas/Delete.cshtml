@@ -1,0 +1,16 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
+
+<h2>Eliminar Cita</h2>
+
+<p>¿Seguro que deseas eliminar esta cita?</p>
+
+<ul>
+    <li>Cliente: @Model.Cliente?.NombreCompleto</li>
+    <li>Servicio: @Model.Servicio?.Nombre</li>
+    <li>Fecha: @Model.FechaHora</li>
+</ul>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CitaId" />
+    <button class="btn btn-danger">Eliminar</button>
+</form>

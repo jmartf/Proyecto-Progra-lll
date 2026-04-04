@@ -1,0 +1,30 @@
+﻿@using Proyecto_Programacion_III.Models.Entidades
+
+@model IEnumerable<Usuario>
+
+<h2>Usuarios</h2>
+
+<a asp-action="Create" class="btn btn-primary">Crear Usuario</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.Email</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@u.Id" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

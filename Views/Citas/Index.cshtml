@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Proyecto_Programacion_III.Models.Entidades.Cita>
+
+<h2>Citas</h2>
+
+<a asp-action="Create" class="btn btn-primary">Nueva Cita</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FechaHora</td>
+                <td>@item.Cliente?.NombreCompleto</td>
+                <td>@item.Servicio?.Nombre</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.CitaId" class="btn btn-danger">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

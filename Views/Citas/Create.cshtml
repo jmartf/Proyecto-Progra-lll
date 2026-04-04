@@ -1,0 +1,35 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
+
+<h2>Crear Cita</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label>Fecha</label>
+        <input asp-for="FechaHora" type="datetime-local" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Cliente</label>
+        <select asp-for="ClienteId" class="form-control">
+            @foreach (var c in ViewBag.Clientes)
+            {
+                <option value="@c.ClienteId">@c.NombreCompleto</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Servicio</label>
+        <select asp-for="ServicioId" class="form-control">
+            @foreach (var s in ViewBag.Servicios)
+            {
+                <option value="@s.ServicioId">@s.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <br />
+
+    <button class="btn btn-success">Guardar</button>
+</form>
