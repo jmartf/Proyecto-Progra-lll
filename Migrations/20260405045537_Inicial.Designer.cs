@@ -12,8 +12,8 @@ using Proyecto_Programacion_III.Data;
 namespace Proyecto_Programacion_III.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260301212023_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260405045537_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace Proyecto_Programacion_III.Migrations
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Cita", b =>
                 {
-                    b.Property<int>("CitaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CitaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
@@ -48,7 +48,7 @@ namespace Proyecto_Programacion_III.Migrations
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
-                    b.HasKey("CitaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
@@ -127,13 +127,13 @@ namespace Proyecto_Programacion_III.Migrations
 
             modelBuilder.Entity("Proyecto_Programacion_III.Models.Entidades.Usuario", b =>
                 {
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Correo")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -142,20 +142,19 @@ namespace Proyecto_Programacion_III.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
-                        .HasColumnType("int");
+                    b.Property<string>("Rol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UsuarioId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("Correo")
+                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Usuarios");

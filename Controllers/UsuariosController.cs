@@ -1,70 +1,55 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Proyecto_Programacion_III.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Models.Entidades;
+using Proyecto_Programacion_III.Data;
 
 namespace Proyecto_Programacion_III.Controllers
 {
     public class UsuariosController : Controller
     {
-        private readonly UserManager<Usuario> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public UsuariosController(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager)
+        public UsuariosController(ApplicationDbContext context)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
+            _context = context;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            var usuarios = _userManager.Users.ToList();
+            var usuarios = await _context.Usuarios.ToListAsync();
             return View(usuarios);
         }
+
         public IActionResult Create()
         {
-            ViewBag.Roles = _roleManager.Roles.ToList();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string email, string password, string role)
+        public async Task<IActionResult> Create(Usuario usuario)
         {
-            var usuario = new Usuario
+            if (ModelState.IsValid)
             {
-                UserName = email,
-                Email = email
-            };
-
-            var resultado = await _userManager.CreateAsync(usuario, password);
-
-            if (resultado.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(usuario, role);
+                _context.Usuarios.Add(usuario);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            foreach (var error in resultado.Errors)
-            {
-                ModelState.AddModelError("", error.Description);
-            }
-            
-            ViewBag.Roles = _roleManager.Roles.ToList();
-            
-            return View();
+            return View(usuario);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var usuario = await _userManager.FindByIdAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
 
             if (usuario != null)
             {
-                await _userManager.DeleteAsync(usuario);
+                _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToAction("Index");
         }
-
     }
 }

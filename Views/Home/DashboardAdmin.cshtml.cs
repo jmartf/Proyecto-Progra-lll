@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Proyecto_Programacion_III.Views.Cuentas
+namespace Proyecto_Programacion_III.Views.Home
 {
-    public class LoginModel : PageModel
+    public class DashboardAdminModel : PageModel
     {
         public void OnGet()
         {

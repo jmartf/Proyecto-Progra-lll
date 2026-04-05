@@ -1,35 +1,47 @@
 ﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
 
-<h2>Crear Cita</h2>
-
 <form asp-action="Create" method="post">
-
-    <div class="form-group">
-        <label>Fecha</label>
-        <input asp-for="FechaHora" type="datetime-local" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Cliente</label>
-        <select asp-for="ClienteId" class="form-control">
-            @foreach (var c in ViewBag.Clientes)
-            {
-                <option value="@c.ClienteId">@c.NombreCompleto</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Servicio</label>
-        <select asp-for="ServicioId" class="form-control">
-            @foreach (var s in ViewBag.Servicios)
-            {
-                <option value="@s.ServicioId">@s.Nombre</option>
-            }
-        </select>
-    </div>
-
+    <h2>Creacion de cita</h2>
+    <br />
+ 
+    <h5>Seleccione cliente</h5>
+    <select asp-for="ClienteId" class="form-control" required>
+        <option disabled selected value="">-- Seleccione Cliente --</option>
+        @foreach (var item in ViewBag.Clientes)
+        {
+            <option value="@item.ClienteId">@item.NombreCompleto</option>
+        }
+    </select>
+    <span asp-validation-for="ClienteId" class="text-danger"></span>
     <br />
 
-    <button class="btn btn-success">Guardar</button>
+    <h5>Seleccione servicio</h5>
+    <select asp-for="ServicioId" class="form-control" required>
+        <option disabled selected value="">-- Seleccione Servicio --</option>
+        @foreach (var item in ViewBag.Servicios)
+        {
+            <option value="@item.ServicioId">@item.Nombre</option>
+        }
+    </select>
+    <span asp-validation-for="ServicioId" class="text-danger"></span>
+    <br />
+    
+    <h5>Seleccione usuario</h5>
+    <select asp-for="UsuarioId" class="form-control" required>
+        <option disabled selected value="">-- Seleccione Usuario --</option>
+        @foreach (var item in ViewBag.Usuarios)
+        {
+            <option value="@item.Id">@item.Nombre</option>
+        }
+    </select>
+    <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    
+    <br />
+    <h5>Seleccione fecha</h5>
+    <input asp-for="FechaHora" type="datetime-local" class="form-control" />
+    <span asp-validation-for="FechaHora" class="text-danger"></span>
+    <br />
+
+    <button type="submit" class="btn-group-sm">Guardar</button>
+
 </form>

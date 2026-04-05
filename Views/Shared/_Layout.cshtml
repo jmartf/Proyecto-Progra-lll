@@ -9,29 +9,30 @@
     <link rel="stylesheet" href="~/Proyecto_Programacion_III.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    @{
+        var rol = Context.Session.GetString("Rol");
+    }
 
-            <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
 
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    Sistema de Citas
-                </a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                Sistema de Citas
+            </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <div class="collapse navbar-collapse">
 
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
 
-                    <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            Inicio
+                        </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                Inicio
-                            </a>
-                        </li>
-
+                    @* SOLO ADMIN *@
+                    @if (rol == "Administrador")
+                    {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Usuarios" asp-action="Index">
                                 Usuarios
@@ -40,30 +41,59 @@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Cliente" asp-action="Index">
-                                Cliente
+                                Clientes
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Servicio" asp-action="Index">
-                                Servicio
+                                Servicios
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Citas" asp-action="Index">
+                                Citas
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="DashboardAdmin">
+                                Dashboard Admin
+                            </a>
+                        </li>
+                    }
+
+                    @* USUARIO *@
+                    @if (rol == "Usuario")
+                    {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Citas" asp-action="Index">
                                 Citas
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Estadisticas" asp-action="Index">
-                                Estadísticas
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
+                                Clientes
                             </a>
                         </li>
-                    </ul>
-                </div>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="DashboardUsuario">
+                                Dashboard Usuario
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+
+                <span class="navbar-text text-white me-3">
+                    Rol: @rol
+                </span>
+
+
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

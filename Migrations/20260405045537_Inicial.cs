@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Proyecto_Programacion_III.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,24 +48,24 @@ namespace Proyecto_Programacion_III.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Correo = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Rol = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Citas",
                 columns: table => new
                 {
-                    CitaId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     ServicioId = table.Column<int>(type: "int", nullable: false),
@@ -74,7 +75,7 @@ namespace Proyecto_Programacion_III.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Citas", x => x.CitaId);
+                    table.PrimaryKey("PK_Citas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Citas_Clientes_ClienteId",
                         column: x => x.ClienteId,
@@ -91,7 +92,7 @@ namespace Proyecto_Programacion_III.Migrations
                         name: "FK_Citas_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
-                        principalColumn: "UsuarioId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -117,9 +118,9 @@ namespace Proyecto_Programacion_III.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Correo",
+                name: "IX_Usuarios_Email",
                 table: "Usuarios",
-                column: "Correo",
+                column: "Email",
                 unique: true);
         }
 
