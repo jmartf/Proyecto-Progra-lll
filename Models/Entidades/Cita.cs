@@ -1,7 +1,6 @@
-﻿using Proyecto_Programacion_III.Models.Entidades.Opciones;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Proyecto_Programacion_III.Models.Entidades.Opciones;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Proyecto_Programacion_III.Models.Entidades
 {

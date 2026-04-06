@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
-using Proyecto_Programacion_III.Models.Entidades;
 
 var builder = WebApplication.CreateBuilder(args);
 

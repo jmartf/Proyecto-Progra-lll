@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Proyecto_Programacion_III.Data;
 using Proyecto_Programacion_III.Models;
 using Proyecto_Programacion_III.Models.Entidades.Opciones;
@@ -79,9 +78,9 @@ namespace Proyecto_Programacion_III.Controllers
 
         public IActionResult DashboardUsuario()
         {
-            
+
             ViewBag.TotalCitas = _context.Citas.Count();
- 
+
             ViewBag.ServiciosActivos = _context.Servicios
                .Count(s => s.Estado == EstadoServicio.Activo);
 
@@ -93,7 +92,7 @@ namespace Proyecto_Programacion_III.Controllers
 
             ViewBag.CitasCanceladas = _context.Citas
                 .Count(c => c.Estado == EstadoCita.Cancelada);
-            
+
             ViewBag.Citas = _context.Citas.ToList();
 
             return View();

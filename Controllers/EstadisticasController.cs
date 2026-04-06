@@ -6,8 +6,8 @@ namespace Proyecto_Programacion_III.Controllers
     {
         public IActionResult Index()
         {
-                return View();
+            return View();
         }
-        
+
     }
 }

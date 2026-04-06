@@ -1,5 +1,4 @@
 ﻿using Proyecto_Programacion_III.Models.Entidades.Opciones;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace Proyecto_Programacion_III.Models.Entidades

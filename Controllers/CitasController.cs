@@ -38,7 +38,7 @@ public class CitasController : Controller
     {
         ViewBag.Clientes = _context.Clientes.ToList();
         ViewBag.Servicios = _context.Servicios.ToList();
-        ViewBag.Usuarios = _context.Usuarios.ToList(); 
+        ViewBag.Usuarios = _context.Usuarios.ToList();
         return View();
     }
 
@@ -153,7 +153,7 @@ public class CitasController : Controller
             .Include(c => c.Cliente)
             .Include(c => c.Servicio)
             .Include(c => c.Usuario)
-            .FirstOrDefaultAsync(c => c.Id == id); 
+            .FirstOrDefaultAsync(c => c.Id == id);
 
         return View(cita);
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Proyecto_Programacion_III.Models.Entidades;
 using Proyecto_Programacion_III.Data;
+using Proyecto_Programacion_III.Models.Entidades;
 
 namespace Proyecto_Programacion_III.Controllers
 {
