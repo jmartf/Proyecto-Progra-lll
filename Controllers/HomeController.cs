@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Proyecto_Programacion_III.Models;
-using System.Diagnostics;
 using Proyecto_Programacion_III.Data;
+using Proyecto_Programacion_III.Models;
+using Proyecto_Programacion_III.Models.Entidades.Opciones;
+using System.Diagnostics;
 
 namespace Proyecto_Programacion_III.Controllers
 {
@@ -41,16 +42,59 @@ namespace Proyecto_Programacion_III.Controllers
         }
         public IActionResult DashboardAdmin()
         {
-            ViewBag.TotalCitas = _context.Citas.Count();
+
+            ViewBag.TotalUsuarios = _context.Usuarios.Count();
             ViewBag.TotalClientes = _context.Clientes.Count();
-            ViewBag.TotalServicios = _context.Servicios.Count();
+            ViewBag.TotalCitas = _context.Citas.Count();
+
+
+            ViewBag.ServiciosActivos = _context.Servicios
+                .Count(s => s.Estado == EstadoServicio.Activo);
+
+            ViewBag.ServiciosInactivos = _context.Servicios
+                .Count(s => s.Estado == EstadoServicio.Inactivo);
+
+            ViewBag.CitasProgramadas = _context.Citas
+                .Count(c => c.Estado == EstadoCita.Programada);
+
+            ViewBag.CitasCanceladas = _context.Citas
+                .Count(c => c.Estado == EstadoCita.Cancelada);
+
+
+            var topServicios = _context.Citas
+                .GroupBy(c => c.Servicio.Nombre)
+                .Select(g => new
+                {
+                    Servicio = g.Key,
+                    Total = g.Count()
+                })
+                .OrderByDescending(x => x.Total)
+                .Take(3)
+                .ToList();
+
+            ViewBag.TopServicios = topServicios;
 
             return View();
         }
 
         public IActionResult DashboardUsuario()
         {
+            
             ViewBag.TotalCitas = _context.Citas.Count();
+ 
+            ViewBag.ServiciosActivos = _context.Servicios
+               .Count(s => s.Estado == EstadoServicio.Activo);
+
+            ViewBag.ServiciosInactivos = _context.Servicios
+                .Count(s => s.Estado == EstadoServicio.Inactivo);
+
+            ViewBag.CitasProgramadas = _context.Citas
+                .Count(c => c.Estado == EstadoCita.Programada);
+
+            ViewBag.CitasCanceladas = _context.Citas
+                .Count(c => c.Estado == EstadoCita.Cancelada);
+            
+            ViewBag.Citas = _context.Citas.ToList();
 
             return View();
         }

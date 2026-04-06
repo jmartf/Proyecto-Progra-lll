@@ -1,0 +1,64 @@
+﻿@model Proyecto_Programacion_III.Models.Entidades.Cita
+@using Proyecto_Programacion_III.Models.Entidades.Opciones
+
+<h2>Editar Cita</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <select asp-for="ClienteId" class="form-control">
+        <option disabled value="">-- Seleccione Cliente --</option>
+        @foreach (var item in ViewBag.Clientes)
+        {
+            <option value="@item.ClienteId"
+                    selected="@(item.ClienteId == Model.ClienteId)">
+                @item.NombreCompleto
+            </option>
+        }
+    </select>
+    <span asp-validation-for="ClienteId" class="text-danger"></span>
+
+
+    <select asp-for="ServicioId" class="form-control">
+        <option disabled value="">-- Seleccione Servicio --</option>
+        @foreach (var item in ViewBag.Servicios)
+        {
+            <option value="@item.ServicioId"
+                    selected="@(item.ServicioId == Model.ServicioId)">
+                @item.Nombre
+            </option>
+        }
+    </select>
+    <span asp-validation-for="ServicioId" class="text-danger"></span>
+
+
+    <select asp-for="UsuarioId" class="form-control">
+        <option disabled value="">-- Seleccione Usuario --</option>
+        @foreach (var item in ViewBag.Usuarios)
+        {
+            <option value="@item.Id"
+                    selected="@(item.Id == Model.UsuarioId)">
+                @item.Nombre
+            </option>
+        }
+    </select>
+    <span asp-validation-for="UsuarioId" class="text-danger"></span>
+
+
+    <input asp-for="FechaHora" type="datetime-local" class="form-control" />
+    <span asp-validation-for="FechaHora" class="text-danger"></span>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

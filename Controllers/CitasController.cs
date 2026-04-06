@@ -16,14 +16,23 @@ public class CitasController : Controller
 
     public async Task<IActionResult> Index()
     {
+        var rol = HttpContext.Session.GetString("Rol");
+        var usuarioId = HttpContext.Session.GetString("UsuarioId");
+
         var citas = _context.Citas
             .Include(c => c.Cliente)
             .Include(c => c.Servicio)
-            .Include(c => c.Usuario); 
+            .Include(c => c.Usuario)
+            .AsQueryable();
+
+        if (rol == "Usuario" && usuarioId != null)
+        {
+            int id = int.Parse(usuarioId);
+            citas = citas.Where(c => c.UsuarioId == id);
+        }
 
         return View(await citas.ToListAsync());
     }
-
 
     public IActionResult Create()
     {
@@ -38,6 +47,7 @@ public class CitasController : Controller
     public async Task<IActionResult> Create(Cita cita)
     {
         cita.Estado = EstadoCita.Programada;
+
         if (cita.FechaHora < DateTime.Now)
         {
             ModelState.AddModelError("FechaHora", "No se pueden agendar citas en fechas pasadas");
@@ -122,6 +132,19 @@ public class CitasController : Controller
         ViewBag.Usuarios = _context.Usuarios.ToList();
 
         return View(cita);
+    }
+
+    public async Task<IActionResult> Cancelar(int id)
+    {
+        var cita = await _context.Citas.FindAsync(id);
+
+        if (cita != null)
+        {
+            cita.Estado = EstadoCita.Cancelada;
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Index");
     }
 
     public async Task<IActionResult> Delete(int id)
